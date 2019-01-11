@@ -1,3 +1,13 @@
+   1.8 - 2019-??-??
+         pyang now has a proper XPath 1.0 parser, which means that it will
+           detect more XPath errors, and produce warnings for XPath expressions
+           that for example refer to unknown nodes
+
+         for python coders: non backwards compatible change in the
+           pyang.xpath module.  the function xpath.tokens() has been
+           replaced by pyang.xpath_lexer.scan(), but it also return
+           tokens in a new format.
+
    1.7.8 - 2019-01-21
          for python coders: reverted method signature change for
          Repository.get_module_from_handle().  it now has the same
