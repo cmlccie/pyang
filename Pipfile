@@ -3,11 +3,15 @@ name = "pypi"
 url = "https://pypi.org/simple"
 verify_ssl = true
 
-[dev-packages]
-ipython = "*"
-
 [packages]
 pyang = "*"
+pyang3 = {editable = true,path = "."}
+
+[dev-packages]
+ipython = "*"
+setuptools = ">=38.6.0"
+wheel = ">=0.31.0"
+twine = ">=1.11.0"
 
 [requires]
 python_version = "3.7"

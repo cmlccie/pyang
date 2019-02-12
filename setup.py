@@ -1,97 +1,84 @@
-from setuptools import setup
-from setuptools import Distribution
-from os.path import join
-import pyang3
-import glob
-import os
-import re
-import sys
-import tempfile
+#!/usr/bin/env python
+"""pyang3 setup module."""
 
-modules_iana = glob.glob(os.path.join('modules', 'iana', '*.yang'))
-modules_ietf = glob.glob(os.path.join('modules', 'ietf', '*.yang'))
-xslt = glob.glob(os.path.join('xslt', '*.xsl'))
-schema = glob.glob(os.path.join('schema', '*.rng'))
-images = glob.glob(os.path.join('tools', 'images', '*'))
-man1 = glob.glob(os.path.join('man', 'man1', '*.1'))
+from pathlib import Path
 
-class PyangDist(Distribution):
+from setuptools import find_packages, setup
 
-      """The purpose of this subclass of Distribution is to extend the
-      install procedure with preprocessing of shell scripts and man
-      pages so that they reflect the actual installation prefix, which
-      may be changed through the --prefix option.
-      """
 
-      def preprocess_files(self, prefix):
-            """Change the installation prefix where necessary.
-            """
-            if prefix is None: return
-            files = ("bin/yang2dsdl", "man/man1/yang2dsdl.1",
-                     "pyang3/plugins/jsonxsl.py")
-            regex = re.compile("^(.*)/usr/local(.*)$")
-            for f in files:
-                  inf = open(f)
-                  cnt = inf.readlines()
-                  inf.close()
-                  ouf = open(f,"w")
-                  for line in cnt:
-                        mo = regex.search(line)
-                        if mo is None:
-                              ouf.write(line)
-                        else:
-                              ouf.write(mo.group(1) + prefix + mo.group(2) +
-                                        "\n")
-                  ouf.close()
+PROJECT_HOME = "https://github.com/cmlccie/pyang/tree/pyang3"
 
-      def run_commands(self):
-            opts = self.command_options
-            if "install" in opts:
-                  self.preprocess_files(opts["install"].get("prefix",
-                                                            ("", None))[1])
-            Distribution.run_commands(self)
+PACKAGE_NAME = "pyang3"
 
-# If the installation is on windows, place pyang3.bat file in Scripts directory
-script_files = []
-if os.name == "nt":
-    pyang_bat_file = "{}/{}.bat".format(tempfile.gettempdir(), "pyang3")
-    with open(pyang_bat_file, 'w') as script:
-        script.write('@echo off\npython %~dp0pyang %*\n')
-    script_files = ['bin/pyang3', 'bin/yang2html', 'bin/yang2dsdl', 'bin/json2xml', pyang_bat_file]
-else:
-    script_files = ['bin/pyang3', 'bin/yang2html', 'bin/yang2dsdl', 'bin/json2xml']
+PACKAGE_KEYWORDS = [
+    "yang",
+    "yin",
+    "validator",
+]
 
-setup(name='pyang3',
-      version=pyang3.__version__,
-      author='Martin Bjorklund',
-      author_email='mbj@tail-f.com',
-      description="A YANG (RFC 6020/7950) validator and converter",
-      long_description="An extensible  YANG (RFC 6020/7950) validator.  Provides a framework for plugins that can convert YANG modules to other formats.",
-      url='https://github.com/mbj4668/pyang3',
-      install_requires = ["lxml"],
-      license='BSD',
-      classifiers=[
-            'Development Status :: 5 - Production/Stable',
-            'License :: OSI Approved :: BSD License',
-            'Programming Language :: Python :: 2',
-            'Programming Language :: Python :: 2.7',
-            'Programming Language :: Python :: 3',
-            ],
-      keywords='YANG validator',
-      distclass=PyangDist,
-      scripts=script_files,
-      packages=['pyang3', 'pyang3.plugins', 'pyang3.translators'],
-      data_files=[
-            ('share/man/man1', man1),
-            ('share/yang/modules/iana', modules_iana),
-            ('share/yang/modules/ietf', modules_ietf),
-            ('share/yang/xslt', xslt),
-            ('share/yang/images', images),
-            ('share/yang/schema', schema),
-            ('etc/bash_completion.d', ['etc/bash_completion.d/pyang3']),
-            ]
-      )
+PACKAGE_CLASSIFIERS = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: System Administrators",
+    "Intended Audience :: Telecommunications Industry",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "License :: OSI Approved :: BSD License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+]
 
-# Remove Bat file
-if os.name == "nt":
-    os.remove(pyang_bat_file)
+INSTALLATION_REQUIREMENTS = [
+    "lxml",
+    "click",
+]
+
+
+project_root = Path(__file__).parent
+
+
+# Get package metadata
+metadata = {"__name__": PACKAGE_NAME}
+with open(project_root/PACKAGE_NAME/"__init__.py", encoding="utf-8") as f:
+    exec(f.read(), metadata)
+
+
+# Get the long description from the project"s README file
+with open(project_root/"README.md", encoding="utf-8") as f:
+    long_description = f.read()
+    long_description_content_type = "text/markdown"
+
+
+# Locate data files
+modules_iana = [str(f) for f in project_root.glob("modules/iana/*.yang")]
+modules_ietf = [str(f) for f in project_root.glob("modules/ietf/*.yang")]
+xslt = [str(f) for f in project_root.glob("xslt/*.xsl")]
+schema = [str(f) for f in project_root.glob("schema/*.rng")]
+images = [str(f) for f in project_root.glob("tools/images/*")]
+man1 = [str(f) for f in project_root.glob("man/man1/*.1")]
+data_files = [
+    ("share/man/man1", man1),
+    ("share/yang/modules/iana", modules_iana),
+    ("share/yang/modules/ietf", modules_ietf),
+    ("share/yang/xslt", xslt),
+    ("share/yang/images", images),
+    ("share/yang/schema", schema),
+    ("etc/bash_completion.d", ["etc/bash_completion.d/pyang"]),
+]
+
+
+setup(
+    name=PACKAGE_NAME,
+    description=metadata.get("__description__", ""),
+    version=metadata.get("__version__", ""),
+    author=metadata.get("__author__", ""),
+    author_email=metadata.get("__author_email__", ""),
+    license=metadata.get("__license__", ""),
+    url=PROJECT_HOME,
+    long_description=long_description,
+    long_description_content_type=long_description_content_type,
+    install_requires=INSTALLATION_REQUIREMENTS,
+    classifiers=PACKAGE_CLASSIFIERS,
+    keywords=" ".join(PACKAGE_KEYWORDS),
+    packages=find_packages(include=[PACKAGE_NAME, PACKAGE_NAME + '.*']),
+    data_files=data_files,
+)

@@ -1,4 +1,4 @@
-"""The pyang3 library for parsing, validating, and converting YANG modules"""
+"""Parse, validate, and convert YANG modules."""
 
 import os
 import string
@@ -15,8 +15,14 @@ from . import util
 from . import statements
 from . import syntax
 
-__version__ = '1.7.8'
-__date__ = '2019-01-21'
+
+__description__ = __doc__
+__author__ = "Martin Bjorklund"
+__author_email__ = "mbj@tail-f.com"
+__license__ = "BSD"
+__version__ = "1.7.8"
+__date__ = "2019-01-21"
+
 
 class Context(object):
     """Class which encapsulates a parse session"""
