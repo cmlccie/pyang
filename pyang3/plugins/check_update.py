@@ -8,13 +8,13 @@ import sys
 import os
 import io
 
-import pyang
-from pyang import plugin
-from pyang import statements
-from pyang import error
-from pyang import util
-from pyang import types
-from pyang.error import err_add
+import pyang3
+from pyang3 import plugin
+from pyang3 import statements
+from pyang3 import error
+from pyang3 import util
+from pyang3 import types
+from pyang3.error import err_add
 
 def pyang_plugin_init():
     plugin.register_plugin(CheckUpdatePlugin())
@@ -137,8 +137,8 @@ def check_update(ctx, oldfilename, newmod):
     if olddir == '':
         olddir = '.'
     oldpath += os.pathsep + olddir
-    oldrepo = pyang.FileRepository(oldpath, use_env=False)
-    oldctx = pyang.Context(oldrepo)
+    oldrepo = pyang3.FileRepository(oldpath, use_env=False)
+    oldctx = pyang3.Context(oldrepo)
     oldctx.opts = ctx.opts
     oldctx.lax_xpath_checks = ctx.lax_xpath_checks
     oldctx.lax_quote_checks = ctx.lax_quote_checks

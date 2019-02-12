@@ -6,8 +6,8 @@ import optparse
 import sys
 import os.path
 
-from pyang import plugin
-from pyang import error
+from pyang3 import plugin
+from pyang3 import error
 
 def pyang_plugin_init():
     plugin.register_plugin(DependPlugin())

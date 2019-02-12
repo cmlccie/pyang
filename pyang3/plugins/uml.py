@@ -1,7 +1,7 @@
 """uml output plugin
 1) download plantuml.sourceforge.net/
 2) Invoke with:
->pyang -f uml <file.yang> > <file.uml>
+>pyang3 -f uml <file.yang> > <file.uml>
 >java -jar plantuml.jar <file.uml>
 
 3) result in img/module.png
@@ -18,14 +18,14 @@ import sys
 import datetime
 import re
 
-from pyang import plugin
-from pyang import util
-from pyang import grammar
-from pyang import error
-from pyang import syntax
-from pyang import statements
-from pyang.error import err_add
-from pyang.statements import find_target_node
+from pyang3 import plugin
+from pyang3 import util
+from pyang3 import grammar
+from pyang3 import error
+from pyang3 import syntax
+from pyang3 import statements
+from pyang3.error import err_add
+from pyang3.statements import find_target_node
 
 
 def pyang_plugin_init():

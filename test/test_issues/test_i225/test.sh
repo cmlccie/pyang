@@ -12,7 +12,7 @@ set -e
 source .test-env/bin/activate
 # Install pytest
 pip install pytest > /dev/null
-# Build pyang from source and install it using pip
+# Build pyang3 from source and install it using pip
 current_dir=$PWD
 cd ../../..
 rm -f dist/*.whl

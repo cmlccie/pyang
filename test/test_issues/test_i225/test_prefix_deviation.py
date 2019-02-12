@@ -14,7 +14,7 @@ try:
 except:
     import pip._internal.locations as locations
 
-from pyang import Context, FileRepository
+from pyang3 import Context, FileRepository
 
 EXISTING_MODULE = 'ietf-yang-types'
 
@@ -31,7 +31,7 @@ DEFAULT_OPTIONS = {
     'deviations': [],
     'path': []
 }
-"""Default options for pyang command line"""
+"""Default options for pyang3 command line"""
 
 
 class objectify(object):
@@ -51,7 +51,7 @@ class objectify(object):
 
 
 def create_context(path='.', *options, **kwargs):
-    """Generates a pyang context
+    """Generates a pyang3 context
 
     Arguments:
         path (str): location of YANG modules.
@@ -59,7 +59,7 @@ def create_context(path='.', *options, **kwargs):
         **kwargs: similar to ``options`` but have a higher precedence.
 
     Returns:
-        pyang.Context: Context object for ``pyang`` usage
+        pyang.Context: Context object for ``pyang3`` usage
     """
 
     opts = objectify(DEFAULT_OPTIONS, *options, **kwargs)
@@ -72,7 +72,7 @@ def create_context(path='.', *options, **kwargs):
 
 def test_can_find_modules_with_pip_install():
     """
-    context should find the default installed modules even when pyang
+    context should find the default installed modules even when pyang3
         is installed using pip
     """
 
@@ -97,7 +97,7 @@ def test_can_find_modules_when_prefix_differ(monkeypatch):
 
     # store pip location.
     # monkeypatching sys.prefix will side_effect scheme.
-    scheme = locations.distutils_scheme('pyang')
+    scheme = locations.distutils_scheme('pyang3')
     monkeypatch.setattr(
         locations, 'distutils_scheme', lambda *_: scheme)
 

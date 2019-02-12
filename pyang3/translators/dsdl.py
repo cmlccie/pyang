@@ -17,7 +17,7 @@
 
 """Translator from YANG to hybrid DSDL schema.
 
-It is designed as a plugin for the pyang program and defines several
+It is designed as a plugin for the pyang3 program and defines several
 new command-line options:
 
 --dsdl-no-documentation
@@ -31,7 +31,7 @@ new command-line options:
 
 Three classes are defined in this module:
 
-* `DSDLPlugin`: pyang plugin interface class
+* `DSDLPlugin`: pyang3 plugin interface class
 
 * `HybridDSDLSchema`: provides instance that performs the mapping
   of input YANG modules to the hybrid DSDL schema.
@@ -47,7 +47,7 @@ import optparse
 import time
 
 
-from pyang import plugin, error, xpath, util, statements, types
+from pyang3 import plugin, error, xpath, util, statements, types
 
 from .schemanode import SchemaNode
 
@@ -711,7 +711,7 @@ class HybridDSDLSchema(object):
 
         `stmt` provides the context in YANG and `elem` is the parent
         element in the output schema. Refinements adding documentation
-        and changing the config status are immediately applied. 
+        and changing the config status are immediately applied.
 
         The returned tuple consists of:
         - a dictionary of refinements, in which keys are the keywords
@@ -977,7 +977,7 @@ class HybridDSDLSchema(object):
                 chelem.occur = 3
         self.handle_substmts(stmt, chelem, new_pset)
         self.apply_augments(augs, chelem, new_pset)
-        
+
     def container_stmt(self, stmt, p_elem, pset):
         celem = SchemaNode.element(self.qname(stmt), p_elem)
         if self.has_meta:

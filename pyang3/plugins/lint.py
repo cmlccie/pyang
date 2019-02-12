@@ -8,11 +8,11 @@ to IETF-specific values.
 import optparse
 import sys
 
-from pyang import plugin
-from pyang import statements
-from pyang import error
-from pyang import grammar
-from pyang.error import err_add
+from pyang3 import plugin
+from pyang3 import statements
+from pyang3 import error
+from pyang3 import grammar
+from pyang3.error import err_add
 
 def pyang_plugin_init():
     plugin.register_plugin(LintPlugin())

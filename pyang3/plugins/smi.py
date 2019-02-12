@@ -13,13 +13,13 @@ i_smi_oid built from the smiv2:oid and smiv2:subid statements.
 
 import re
 
-import pyang
-from pyang import plugin
-from pyang import syntax
-from pyang import grammar
-from pyang import statements
-from pyang import error
-from pyang.error import err_add
+import pyang3
+from pyang3 import plugin
+from pyang3 import syntax
+from pyang3 import grammar
+from pyang3 import statements
+from pyang3 import error
+from pyang3.error import err_add
 
 smi_module_name = 'ietf-yang-smiv2'
 
@@ -37,7 +37,7 @@ def _chk_smi_max_access(s):
                  'read-write', 'read-create']
 
 def pyang_plugin_init():
-    """Called by pyang plugin framework at to initialize the plugin."""
+    """Called by pyang3 plugin framework at to initialize the plugin."""
 
     # Register the plugin
     plugin.register_plugin(SMIPlugin())

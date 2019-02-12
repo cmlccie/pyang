@@ -1,6 +1,6 @@
-from pyang import error
-from pyang import plugin
-from pyang import statements
+from pyang3 import error
+from pyang3 import plugin
+from pyang3 import statements
 
 
 def pyang_plugin_init():

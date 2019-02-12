@@ -127,7 +127,7 @@ re_absolute_schema_nodeid = re.compile("^" + absolute_schema_nodeid + "$")
 re_descendant_schema_nodeid = re.compile("^" + descendant_schema_nodeid + "$")
 re_deviate = re.compile("^(add|delete|replace|not-supported)$")
 
-# Not part of YANG syntax per se but useful for pyang in several places
+# Not part of YANG syntax per se but useful for pyang3 in several places
 re_filename = re.compile(r"^([^@]*?)" +          # putative module name
                          r"(?:@([^.]*?))?" +     # putative revision
                          r"(?:\.yang|\.yin)*" +  # foo@bar.yang.yin.yang.yin ?

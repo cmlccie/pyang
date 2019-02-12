@@ -1,6 +1,6 @@
 import re
 
-from pyang import plugin
+from pyang3 import plugin
 
 
 def pyang_plugin_init():

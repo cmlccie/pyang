@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# ls *.yang | xargs -n1 pyang -f depend > packages.txt
+# ls *.yang | xargs -n1 pyang3 -f depend > packages.txt
 # pkg --title=TITLE --inputfile=packages.txt > packages.uml
 # java -jar plantuml.jar packages.uml
 # open img/packages.png
@@ -15,7 +15,7 @@ def main(*args):
 	parser.add_option("--title", action="store", dest="TITLE",
                   help="Title of UML Package Diagram")
 	parser.add_option("--inputfile", action="store", dest="INPUT",
-                  help="Input file generated with pyang -f depend")
+                  help="Input file generated with pyang3 -f depend")
 	(options, args) = parser.parse_args()
 
 	if (options.TITLE is None) or (options.INPUT is None):
@@ -69,6 +69,6 @@ def stripws(s):
 	s = s.replace("\n", "")
 	return s
 
- 
+
 if __name__ == '__main__':
     sys.exit(main())

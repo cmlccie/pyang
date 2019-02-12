@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # source this file to get environment setup for the
-# pyang below here
+# pyang3 below here
 
 p=`pwd`
 export PATH=$p/bin:$PATH

@@ -131,7 +131,7 @@ yang_1_1_xpath_functions = [
     ]
 
 extra_xpath_functions = [
-    'deref', # pyang extension for 1.0
+    'deref', # pyang3 extension for 1.0
     ]
 
 data_definition_keywords = ['container', 'leaf', 'leaf-list', 'list',
@@ -2549,7 +2549,7 @@ def validate_leafref_path(ctx, stmt, path_spec, path,
 
     # Unprefixed paths in typedefs in YANG 1 were underspecified.  In
     # YANG 1.1 the semantics are defined.  The code below is compatible
-    # with old pyang for YANG 1 modules.
+    # with old pyang3 for YANG 1 modules.
 
     # If an un-prefixed identifier is found, it defaults to the
     # module where the path is defined, except if found within

@@ -35,7 +35,7 @@ import optparse
 from lxml import etree
 import copy
 
-from pyang import plugin, error
+from pyang3 import plugin, error
 
 
 def pyang_plugin_init():

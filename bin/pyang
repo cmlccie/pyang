@@ -8,13 +8,13 @@ import io
 if sys.version < '3':
     import codecs
 
-import pyang
-from pyang import plugin
-from pyang import error
-from pyang import util
-from pyang import hello
-from pyang import statements
-from pyang import syntax
+import pyang3
+from pyang3 import plugin
+from pyang3 import error
+from pyang3 import util
+from pyang3 import hello
+from pyang3 import statements
+from pyang3 import syntax
 
 def run():
 
@@ -134,7 +134,7 @@ Validates the YANG module in <filename> (or stdin), and all its dependencies."""
                              " and yang modules"),
         optparse.make_option("--plugindir",
                              dest="plugindir",
-                             help="Load pyang plugins from PLUGINDIR"),
+                             help="Load pyang3 plugins from PLUGINDIR"),
         optparse.make_option("--strict",
                              dest="strict",
                              action="store_true",
@@ -171,7 +171,7 @@ Validates the YANG module in <filename> (or stdin), and all its dependencies."""
         ]
 
     optparser = optparse.OptionParser(usage, add_help_option = False)
-    optparser.version = '%prog ' + pyang.__version__
+    optparser.version = '%prog ' + pyang3.__version__
     optparser.add_options(optlist)
 
     for p in plugin.plugins:
@@ -230,10 +230,10 @@ Validates the YANG module in <filename> (or stdin), and all its dependencies."""
     else:
         path += os.pathsep + "."
 
-    repos = pyang.FileRepository(path, no_path_recurse=o.no_path_recurse,
+    repos = pyang3.FileRepository(path, no_path_recurse=o.no_path_recurse,
                                  verbose=o.verbose)
 
-    ctx = pyang.Context(repos)
+    ctx = pyang3.Context(repos)
 
     ctx.opts = o
     ctx.canonical = o.canonical

@@ -1,4 +1,4 @@
-"""The pyang library for parsing, validating, and converting YANG modules"""
+"""The pyang3 library for parsing, validating, and converting YANG modules"""
 
 import os
 import string
@@ -423,11 +423,11 @@ class FileRepository(Repository):
             location = None
             try:
                 import pip.locations as locations
-                location = locations.distutils_scheme('pyang')
+                location = locations.distutils_scheme('pyang3')
             except:
                 try:
                     import pip._internal.locations as locations
-                    location = locations.distutils_scheme('pyang')
+                    location = locations.distutils_scheme('pyang3')
                 except:
                     pass
             if location is not None:

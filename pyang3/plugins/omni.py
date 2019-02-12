@@ -4,8 +4,8 @@ import sys
 import re
 import string
 
-from pyang import plugin
-from pyang import statements
+from pyang3 import plugin
+from pyang3 import statements
 
 paths_in_module = []
 leafrefs = []
@@ -91,7 +91,7 @@ tell application id "com.omnigroup.OmniGraffle6"
 
 def post_process(fd, ctx):
     for s in leafrefs:
-        # dont try to connect to class not given as input to pyang
+        # dont try to connect to class not given as input to pyang3
 
         if (s.strip().split(" to ")[1].split(" with ")[0]in paths_in_module):
             fd.write(s)

@@ -25,8 +25,8 @@ import os
 import sys
 import xml.etree.ElementTree as ET
 
-from pyang import plugin, statements, error
-from pyang.util import unique_prefixes
+from pyang3 import plugin, statements, error
+from pyang3.util import unique_prefixes
 
 ss = ET.Element("stylesheet",
                 {"version": "1.0",

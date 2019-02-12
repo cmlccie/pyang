@@ -24,8 +24,8 @@ configuration or state data to XML.
 import os
 import json
 
-from pyang import plugin, statements, error
-from pyang.util import unique_prefixes
+from pyang3 import plugin, statements, error
+from pyang3.util import unique_prefixes
 
 def pyang_plugin_init():
     plugin.register_plugin(JtoXPlugin())

@@ -1,7 +1,7 @@
 from setuptools import setup
 from setuptools import Distribution
 from os.path import join
-import pyang
+import pyang3
 import glob
 import os
 import re
@@ -28,7 +28,7 @@ class PyangDist(Distribution):
             """
             if prefix is None: return
             files = ("bin/yang2dsdl", "man/man1/yang2dsdl.1",
-                     "pyang/plugins/jsonxsl.py")
+                     "pyang3/plugins/jsonxsl.py")
             regex = re.compile("^(.*)/usr/local(.*)$")
             for f in files:
                   inf = open(f)
@@ -51,23 +51,23 @@ class PyangDist(Distribution):
                                                             ("", None))[1])
             Distribution.run_commands(self)
 
-# If the installation is on windows, place pyang.bat file in Scripts directory
+# If the installation is on windows, place pyang3.bat file in Scripts directory
 script_files = []
 if os.name == "nt":
-    pyang_bat_file = "{}/{}.bat".format(tempfile.gettempdir(), "pyang")
+    pyang_bat_file = "{}/{}.bat".format(tempfile.gettempdir(), "pyang3")
     with open(pyang_bat_file, 'w') as script:
         script.write('@echo off\npython %~dp0pyang %*\n')
-    script_files = ['bin/pyang', 'bin/yang2html', 'bin/yang2dsdl', 'bin/json2xml', pyang_bat_file]
+    script_files = ['bin/pyang3', 'bin/yang2html', 'bin/yang2dsdl', 'bin/json2xml', pyang_bat_file]
 else:
-    script_files = ['bin/pyang', 'bin/yang2html', 'bin/yang2dsdl', 'bin/json2xml']
+    script_files = ['bin/pyang3', 'bin/yang2html', 'bin/yang2dsdl', 'bin/json2xml']
 
-setup(name='pyang',
-      version=pyang.__version__,
+setup(name='pyang3',
+      version=pyang3.__version__,
       author='Martin Bjorklund',
       author_email='mbj@tail-f.com',
       description="A YANG (RFC 6020/7950) validator and converter",
       long_description="An extensible  YANG (RFC 6020/7950) validator.  Provides a framework for plugins that can convert YANG modules to other formats.",
-      url='https://github.com/mbj4668/pyang',
+      url='https://github.com/mbj4668/pyang3',
       install_requires = ["lxml"],
       license='BSD',
       classifiers=[
@@ -80,7 +80,7 @@ setup(name='pyang',
       keywords='YANG validator',
       distclass=PyangDist,
       scripts=script_files,
-      packages=['pyang', 'pyang.plugins', 'pyang.translators'],
+      packages=['pyang3', 'pyang3.plugins', 'pyang3.translators'],
       data_files=[
             ('share/man/man1', man1),
             ('share/yang/modules/iana', modules_iana),
@@ -88,7 +88,7 @@ setup(name='pyang',
             ('share/yang/xslt', xslt),
             ('share/yang/images', images),
             ('share/yang/schema', schema),
-            ('etc/bash_completion.d', ['etc/bash_completion.d/pyang']),
+            ('etc/bash_completion.d', ['etc/bash_completion.d/pyang3']),
             ]
       )
 

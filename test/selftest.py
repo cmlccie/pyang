@@ -7,10 +7,10 @@ import glob
 import subprocess
 
 
-from pyang import util
-from pyang import error
-from pyang import grammar
-from pyang import syntax
+from pyang3 import util
+from pyang3 import error
+from pyang3 import grammar
+from pyang3 import syntax
 
 def oscmd(cmd):
     p = subprocess.Popen(cmd, shell=True,
@@ -29,8 +29,8 @@ found_error = False
 
 def chk_error_codes():
     global found_error
-    files = glob.glob("../pyang/*.py") + glob.glob("../pyang/*/*.py")
-    del files[files.index('../pyang/error.py')]
+    files = glob.glob("../pyang3/*.py") + glob.glob("../pyang3/*/*.py")
+    del files[files.index('../pyang3/error.py')]
     filesstr = ' '.join(files)
     for x in error.error_codes:
         (retcode, res, err) = oscmd('grep %s %s' % (x, filesstr))

@@ -6,8 +6,8 @@ to the YANG module(s).
 import optparse
 import sys
 
-from pyang import plugin
-from pyang import statements
+from pyang3 import plugin
+from pyang3 import statements
 
 def pyang_plugin_init():
     plugin.register_plugin(JSTreePlugin())
@@ -282,7 +282,7 @@ def emit_tree(modules, fd, ctx, path):
         temp_mod_arg = module.arg
         # html plugin specific changes
         if hasattr(ctx, 'html_plugin_user'):
-           from pyang.plugins.html import force_link
+           from pyang3.plugins.html import force_link
            temp_mod_arg = force_link(ctx,module,module)
 
         levelcnt[1] += 1
@@ -447,7 +447,7 @@ def print_node(s, module, fd, prefix, path, ctx, level=0):
     if folder:
         # html plugin specific changes
         if hasattr(ctx, 'html_plugin_user'):
-           from pyang.plugins.html import force_link
+           from pyang3.plugins.html import force_link
            name = force_link(ctx,s,module,name)
         fd.write("""<tr id="%s" class="a">
                        <td nowrap id="p4000">

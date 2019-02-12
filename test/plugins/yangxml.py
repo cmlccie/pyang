@@ -1,9 +1,9 @@
-# This pyang plugin generates a random XML instance document adhering
+# This pyang3 plugin generates a random XML instance document adhering
 # to a YANG module.
 
-from pyang import plugin
-from pyang import types
-from pyang import statements
+from pyang3 import plugin
+from pyang3 import types
+from pyang3 import statements
 import sys
 from random import randint, random
 
@@ -16,7 +16,7 @@ class YANGXMLPlugin(plugin.PyangPlugin):
     def emit(self, ctx, modules, writef):
         module = modules[0]
         emit_xml(module, writef)
-    
+
 def emit_xml(module, fd):
     # pick one top-level child
     if len(module.i_children) == 0:
@@ -59,12 +59,12 @@ def emit_stmt(stmt, fd, ind, attrs='', n=None):
             emit_stmt(c, fd, ind)
     elif stmt.keyword == 'anyxml':
         emit_anyxml(stmt, fd, ind)
-        
+
 def emit_leaf(stmt, fd, ind, attrs):
     do_print = True
-    if ((stmt.search_one('mandatory') != None) and 
+    if ((stmt.search_one('mandatory') != None) and
         (stmt.search_one('mandatory').arg == 'false') or
-        (stmt.search_one('default') != None) or 
+        (stmt.search_one('default') != None) or
         (statements.has_type(stmt.search_one('type'), ['empty']) != None)):
         if random() < 0.3:
             do_print = False
@@ -107,7 +107,7 @@ def emit_list(stmt, n, fd, ind, attrs):
 
 def emit_anyxml(stmt, fd, ind):
     fd.write(ind + '<%s><bar xmlns="">42</bar></%s>\n' % (stmt.arg, stmt.arg))
-        
+
 def emit_type_val(t, fd):
     if t.i_is_derived == False and t.i_typedef != None:
         return emit_type_val(t.i_typedef.search_one('type'), fd)

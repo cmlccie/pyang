@@ -1,4 +1,4 @@
-"""pyang plugin handling"""
+"""pyang3 plugin handling"""
 
 import os
 import sys
@@ -17,12 +17,12 @@ def init(plugindirs=[]):
     dsdl.pyang_plugin_init()
 
     # initialize installed plugins
-    for ep in pkg_resources.iter_entry_points(group='pyang.plugin'):
+    for ep in pkg_resources.iter_entry_points(group='pyang3.plugin'):
         plugin_init = ep.load()
         plugin_init()
 
     # search for plugins in std directories (plugins directory first)
-    basedir = os.path.split(sys.modules['pyang'].__file__)[0]
+    basedir = os.path.split(sys.modules['pyang3'].__file__)[0]
     plugindirs.insert(0, basedir + "/transforms")
     plugindirs.insert(0, basedir + "/plugins")
 
@@ -50,7 +50,7 @@ def init(plugindirs=[]):
         sys.path = syspath
 
 def register_plugin(plugin):
-    """Call this to register a pyang plugin. See class PyangPlugin
+    """Call this to register a pyang3 plugin. See class PyangPlugin
     for more info.
     """
     plugins.append(plugin)
@@ -62,16 +62,16 @@ def is_plugin_registered(name):
     return False
 
 class PyangPlugin(object):
-    """Abstract base class for pyang plugins
+    """Abstract base class for pyang3 plugins
 
-    A pyang plugin is a module found in the plugins directory of the
-    pyang installation, or in the dynamic pluginpath.
+    A pyang3 plugin is a module found in the plugins directory of the
+    pyang3 installation, or in the dynamic pluginpath.
 
     Such a module must export a function 'pyang_plugin_init()', which
-    may call pyang.plugin.register_plugin() with an instance of a class
+    may call pyang3.plugin.register_plugin() with an instance of a class
     derived from this class as argument.
 
-    A plugin can extend the base pyang library functions, or the pyang
+    A plugin can extend the base pyang3 library functions, or the pyang3
     front-end program, or both.
     """
 
@@ -80,10 +80,10 @@ class PyangPlugin(object):
         self.multiple_modules = False
         self.handle_comments = False
 
-    ## pyang front-end program methods
+    ## pyang3 front-end program methods
 
     def add_output_format(self, fmts):
-        """Add an output format to the pyang program.
+        """Add an output format to the pyang3 program.
 
         `fmts` is a dict which maps the format name string to a plugin
         instance.
@@ -94,7 +94,7 @@ class PyangPlugin(object):
         return
 
     def add_transform(self, xforms):
-        """Add a transform to the pyang program.
+        """Add a transform to the pyang3 program.
 
         `xforms` is a dict which maps the transform name string to a plugin
         instance.
@@ -104,7 +104,7 @@ class PyangPlugin(object):
         return
 
     def add_opts(self, optparser):
-        """Add command line options to the pyang program.
+        """Add command line options to the pyang3 program.
 
         Override this method and add the plugin related options as an
         option group.

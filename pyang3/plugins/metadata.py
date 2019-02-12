@@ -5,13 +5,13 @@ Verifies metadata YANG statements as defined in RFC 7952
 
 import re
 
-import pyang
-from pyang import plugin
-from pyang import syntax
-from pyang import grammar
-from pyang import statements
-from pyang import error
-from pyang.error import err_add
+import pyang3
+from pyang3 import plugin
+from pyang3 import syntax
+from pyang3 import grammar
+from pyang3 import statements
+from pyang3 import error
+from pyang3.error import err_add
 
 md_module_name = 'ietf-yang-metadata'
 
@@ -19,7 +19,7 @@ class MDPlugin(plugin.PyangPlugin):
     pass
 
 def pyang_plugin_init():
-    """Called by pyang plugin framework at to initialize the plugin."""
+    """Called by pyang3 plugin framework at to initialize the plugin."""
 
     # Register the plugin
     plugin.register_plugin(MDPlugin())
